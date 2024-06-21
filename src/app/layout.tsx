@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import SideNav from "@/components/sidenav";
 import NextAuthProvider from "@/providers/nextauth";
+import ReduxProvider from "@/providers/redux";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -19,16 +20,18 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <NextAuthProvider>
-          <div className="flex h-screen flex-col md:flex-row md:overflow-hidden">
-            <div className="w-full flex-none md:w-64">
-              <SideNav />
+        <ReduxProvider>
+          <NextAuthProvider>
+            <div className="flex h-screen flex-col md:flex-row md:overflow-hidden">
+              <div className="w-full flex-none md:w-64">
+                <SideNav />
+              </div>
+              <div className="flex-grow p-6 md:overflow-y-auto md:p-12">
+                {children}
+              </div>
             </div>
-            <div className="flex-grow p-6 md:overflow-y-auto md:p-12">
-              {children}
-            </div>
-          </div>
-        </NextAuthProvider>
+          </NextAuthProvider>
+        </ReduxProvider>
       </body>
     </html>
   );

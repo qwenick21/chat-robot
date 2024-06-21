@@ -16,11 +16,9 @@ export default function SideNav() {
   const addNewChat = () => {
     // 使用当前时间戳作为新聊天会话的简单示例ID
     const newChatHref = `/chat/${Date.now()}`;
+    router.push(newChatHref)
     const newChat = { name: "New Chat", href: newChatHref, editable: false };
-
-    // 更新链接列表，添加新聊天
-    setLinks([newChat, ...links]);
-    router.push(newChatHref);
+    setLinks(links => [newChat, ...links]);
   };
 
   const handleDelete = (href: string) => {

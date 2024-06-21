@@ -8,7 +8,7 @@ const openai = new OpenAI({
 export async function chatStream(messages: any[]) {
     const chatCompletion = await openai.chat.completions.create({
         messages,
-        model: "gpt-3.5-turbo",
+        model: "gpt-4o",
         stream: true
     });
 
