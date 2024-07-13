@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname, useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SideNavHeader from "./header"
 import SideNavList from "./list";
 import GoogleSignin from "./google-signin";
@@ -11,15 +11,21 @@ export default function SideNav() {
   const [links, setLinks] = useState<ChatRoom[]>([]);
   const pathname = usePathname();
   const router = useRouter(); // 使用 useRouter
+  const [newChatHref, setNewChatHref] = useState('');
 
-  // 新增聊天的函数
   const addNewChat = () => {
-    // 使用当前时间戳作为新聊天会话的简单示例ID
     const newChatHref = `/chat/${Date.now()}`;
-    router.push(newChatHref)
-    const newChat = { name: "New Chat", href: newChatHref, editable: false };
-    setLinks(links => [newChat, ...links]);
+    setNewChatHref(newChatHref);
+    router.push(newChatHref);
   };
+
+  useEffect(() => {
+    if (newChatHref && pathname === newChatHref) {
+      const newChat = { name: "New Chat", href: newChatHref, editable: false };
+      setLinks((links) => [newChat, ...links]);
+      setNewChatHref(''); // Reset the newChatHref to prevent multiple updates
+    }
+  }, [pathname, newChatHref]);
 
   const handleDelete = (href: string) => {
     setLinks(links.filter((link) => link.href !== href));
