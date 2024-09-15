@@ -19,6 +19,15 @@ export default function SideNav() {
     router.push(newChatHref);
   };
 
+  // useEffect(() => {
+  //   async function fetchData() {
+  //     const res = await fetch('http://localhost:5000/api/hello')
+  //     const data = await res.json()
+  //     console.log(data)
+  //   }
+  //   fetchData()
+  // }, [])
+
   useEffect(() => {
     if (newChatHref && pathname === newChatHref) {
       const newChat = { name: "New Chat", href: newChatHref, editable: false };

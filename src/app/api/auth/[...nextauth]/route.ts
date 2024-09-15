@@ -3,7 +3,7 @@ import NextAuth from 'next-auth'
 import type { AuthOptions } from "next-auth"
 import GoogleProvider from 'next-auth/providers/google'
 
-export const authOptions: AuthOptions = {
+const authOptions: AuthOptions = {
   // 配置认证提供者
   providers: [
     GoogleProvider({
@@ -11,6 +11,7 @@ export const authOptions: AuthOptions = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET ?? '',
     }),
   ],
+  secret: process.env.AUTH_SECRET,
 }
 
 const handler = NextAuth(authOptions)
