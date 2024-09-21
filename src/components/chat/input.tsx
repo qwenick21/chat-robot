@@ -1,9 +1,10 @@
 import Textarea from 'react-textarea-autosize'
 import { userEnterSubmit } from "@/lib/util";
+import { ChangeEvent } from 'react';
 
 interface Props {
   inputValue: string
-  setInputValue: (e: string) => void
+  setInputValue: (e: ChangeEvent<HTMLTextAreaElement> | ChangeEvent<HTMLInputElement>) => void
   sendMessage: () => void
 }
 
@@ -16,7 +17,7 @@ export default function ChatInput({ inputValue, setInputValue, sendMessage }: Pr
           placeholder="Type a message..."
           value={inputValue}
           rows={1}
-          onChange={(e) => setInputValue(e.target.value)}
+          onChange={setInputValue}
           onKeyDown={(e) => userEnterSubmit(e) && sendMessage()}
         />
         <button
