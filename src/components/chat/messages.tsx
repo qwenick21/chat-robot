@@ -1,4 +1,4 @@
-import { Message } from "@/lib/type";
+import { type Message } from 'ai'
 
 export default function ChatMessages({ messages }: { messages: Message[] }) {
   return (

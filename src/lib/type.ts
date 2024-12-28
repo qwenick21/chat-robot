@@ -1,10 +1,6 @@
 export interface ChatRoom {
+  id: number,
   name: string;
-  href: string;
   editable: boolean;
 }
 
-export interface Message {
-  content: string;
-  role: string;
-}

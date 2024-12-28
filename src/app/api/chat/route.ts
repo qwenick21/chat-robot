@@ -1,14 +1,22 @@
 import { openai } from '@ai-sdk/openai'
 import { streamText, convertToCoreMessages } from 'ai'
+import { saveChatMessagesData } from "@/lib/data"
 
 export const runtime = 'edge';
 export const preferredRegion = ['hnd1'];
 
 export async function POST(req: Request) {
-    const { messages } = await req.json()
+    const { messages, roomId } = await req.json()
+    saveChatMessagesData(roomId, messages.at(-1));
+
     const result = await streamText({
-      model: openai('gpt-4-turbo'),
+      model: openai('gpt-4o'),
       messages: convertToCoreMessages(messages),
+      onFinish(event) {
+        const resText = event.text
+        const resMessages = { role: "assistant", content: resText }
+        saveChatMessagesData(roomId, resMessages);
+      },
     })
 
     return result.toDataStreamResponse()

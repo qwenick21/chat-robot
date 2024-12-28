@@ -9,6 +9,9 @@ const nextConfig = {
       },
     ],
   },
+  experimental: {
+    serverActions: true,  // 开启 Server Actions 特性
+  },
 };
 
 module.exports = nextConfig;
