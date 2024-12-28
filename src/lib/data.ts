@@ -1,7 +1,7 @@
 "use server";
 
 import { sql, db } from "@vercel/postgres";
-import { type Message } from 'ai'
+import { type Message } from 'ai';
 
 export async function fetchPermissionsData(user_email: string) {
    const client = await db.connect();
@@ -63,7 +63,8 @@ export async function fetchChatMessagesData(chat_room_id: number) {
          ORDER BY created_at; `;
       const messagesData = data.rows.map(row => ({
          role: row.role,
-         content: row.content
+         content: row.content,
+         id: `${chat_room_id}`
       }))
       return messagesData;
    } finally {

@@ -8,7 +8,7 @@ import { usePathname } from "next/navigation";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { useEffect, useState } from "react";
-import { type Message } from 'ai'
+import { type Message } from 'ai';
 import { fetchChatMessagesData } from "@/lib/data"
 
 export function ChatInterface() {

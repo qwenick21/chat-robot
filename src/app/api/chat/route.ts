@@ -1,6 +1,7 @@
 import { openai } from '@ai-sdk/openai'
 import { streamText, convertToCoreMessages } from 'ai'
 import { saveChatMessagesData } from "@/lib/data"
+import { type Message } from 'ai';
 
 export const runtime = 'edge';
 export const preferredRegion = ['hnd1'];
@@ -14,7 +15,7 @@ export async function POST(req: Request) {
       messages: convertToCoreMessages(messages),
       onFinish(event) {
         const resText = event.text
-        const resMessages = { role: "assistant", content: resText }
+        const resMessages: Message = { role: "assistant", content: resText, id: roomId }
         saveChatMessagesData(roomId, resMessages);
       },
     })

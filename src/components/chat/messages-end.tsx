@@ -1,4 +1,4 @@
-import { Message } from "@/lib/type";
+import { type Message } from 'ai';
 import { useRef, useEffect } from "react";
 
 export default function ChatMessagesEnd({ messages }: { messages: Message[] }) {
