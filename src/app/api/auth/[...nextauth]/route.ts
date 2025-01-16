@@ -1,9 +1,7 @@
-
-import NextAuth from 'next-auth'
-import type { AuthOptions } from "next-auth"
+import NextAuth, { type AuthOptions } from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
 
-const authOptions: AuthOptions = {
+export const authOptions: AuthOptions = {
   // 配置认证提供者
   providers: [
     GoogleProvider({

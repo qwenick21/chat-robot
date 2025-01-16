@@ -34,11 +34,17 @@ export default function SideNav() {
     dispatch(setPermissions(perm));
   };
 
-  const fetchChat = async () => {
+  const forwardNewChat = (links: ChatRoom[]) => {
+    const newChatRoom = links[0]
+    newChatRoom && router.push(`/chat/${newChatRoom.id}`)
+  }
+
+  const fetchChat = async (hasNewChat = false) => {
     const email = session?.user?.email;
     if (!email) return;
     
     const chatList = await fetchChatRoomData(email);
+    hasNewChat && forwardNewChat(chatList);
     setLinks(chatList);
   };
 
@@ -50,9 +56,11 @@ export default function SideNav() {
   const addNewChat = async () => {
     const email = session?.user?.email;
     if (!email) return;
-
+    
     await addChatRoomData(email);
-    fetchChat();
+
+    const hasNewChat = true
+    await fetchChat(hasNewChat);
   };
 
   const handleDelete = async (id: number) => {
@@ -62,7 +70,6 @@ export default function SideNav() {
   };
 
   const handleEdit = (id: number, isUpate: boolean, name: string) => {
-    console.log(isUpate);
     const updatedLinks = links.map((link) => {
       if (link.id === id) {
         return { ...link, editable: !link.editable };
