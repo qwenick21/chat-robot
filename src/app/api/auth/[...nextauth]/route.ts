@@ -1,7 +1,7 @@
-import NextAuth, { type AuthOptions } from 'next-auth'
+import NextAuth from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
 
-export const authOptions: AuthOptions = {
+export const authOptions = {
   // 配置认证提供者
   providers: [
     GoogleProvider({
@@ -12,6 +12,4 @@ export const authOptions: AuthOptions = {
   secret: process.env.AUTH_SECRET,
 }
 
-const handler = NextAuth(authOptions)
-
-export { handler as GET, handler as POST }
+export const { handlers: { GET, POST }, auth } = NextAuth(authOptions)
