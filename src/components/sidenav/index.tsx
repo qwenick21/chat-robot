@@ -14,24 +14,20 @@ import {
   fetchPermissionsData,
 } from "@/lib/data";
 import { useSession } from "next-auth/react";
-import { useSelector, useDispatch } from 'react-redux'
-import { RootState } from '@/store/store';
-import { setPermissions } from "@/store/permissionsSlice";
 
 export default function SideNav() {
   const [links, setLinks] = useState<ChatRoom[]>([]);
+  const [permissions, setPermissions] = useState(false);
   const pathname = usePathname();
   const router = useRouter(); // 使用 useRouter
   const { data: session } = useSession();
-  const dispatch = useDispatch()
-  const permissions = useSelector((state: RootState) =>  state.permissions.value)
 
   const fetchPermissions = async () => {
     const email = session?.user?.email;
     if (!email) return;
 
     const perm = await fetchPermissionsData(email);
-    dispatch(setPermissions(perm));
+    setPermissions(perm);
   };
 
   const forwardNewChat = (links: ChatRoom[]) => {

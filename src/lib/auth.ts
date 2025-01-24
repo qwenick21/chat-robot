@@ -1,6 +1,6 @@
 import NextAuth from 'next-auth'
 import GoogleProvider from 'next-auth/providers/google'
-import { fetchChatRoomPermissions } from "@/lib/data"
+import { fetchChatRoomPermissions, fetchPermissionsData } from "@/lib/data"
 
 const authOptions = {
   // 配置认证提供者
@@ -25,3 +25,12 @@ export async function checkRoomAuth(roomId: number) {
 
     return true
 }
+
+export async function checkPermissions() {
+  const session = await auth();
+  const email = session?.user?.email;
+  if (!email) return;
+
+  const perm = await fetchPermissionsData(email);
+  return perm
+};
