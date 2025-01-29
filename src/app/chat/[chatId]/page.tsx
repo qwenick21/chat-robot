@@ -2,7 +2,11 @@ import { ChatInterface } from '@/components/chat'
 import { fetchChatMessagesData } from "@/lib/data"
 import { checkRoomAuth } from '@/lib/auth'
 
-export default async function Chat({ params }: { params: { chatId: string } }) {
+interface PageProps {
+    params: Promise<{ chatId: string }>
+}
+
+export default async function Chat({ params }: PageProps) {
     const { chatId } = await params
     const roomId = Number(chatId);
     if (!await checkRoomAuth(roomId)) return (
